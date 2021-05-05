@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
+import { fetchMovie } from "./api";
 
 const App = () => {
-  return <div>Challenge</div>;
+  const [search, setSearch] = useState("");
+  fetchMovie(search);
+  return (
+    <div>
+      <input onChange={(e) => setSearch(e.target.value)} />
+    </div>
+  );
 };
 
 export default App;
