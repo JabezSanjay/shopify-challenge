@@ -10,7 +10,7 @@ export const fetchMovie = async (searchedMovie) => {
 
   try {
     const data = await axios.get(changeableUrl);
-    console.log(data);
+    return data;
   } catch (error) {
     console.log(error);
   }
