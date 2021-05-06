@@ -1,8 +1,1 @@
 @import "~antd/dist/antd.css";
-
-.app__center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 70vh;
-}
