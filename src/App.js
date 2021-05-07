@@ -5,16 +5,15 @@ import "./app.css";
 import { fetchMovie } from "./api";
 import Navbar from "./Layout/Navbar";
 import styled from "styled-components";
+import MovieCard from "./Components/Card";
 
 const App = () => {
   // const [search, setSearch] = useState("");
   const [result, setResult] = useState([]);
 
-  console.log(result);
-
   const getMovieDetails = (name, page) => {
     fetchMovie(name, page).then((data) => {
-      setResult(data.data.Search);
+      setResult(data.data.Search?.splice(0, 3));
     });
   };
 
@@ -28,11 +27,9 @@ const App = () => {
               <h1 className="app-left__row--headText">
                 Nominate using <span>The Shoppies!</span>
               </h1>
-              <Col span={20}>
-                <h3>Search and nominate 5 movies.</h3>
-              </Col>
+              <h3>Search and nominate 5 movies of your choice!</h3>
             </Col>
-            <Col span={12}>
+            <Col span={20}>
               <Input
                 prefix={<FileSearchOutlined />}
                 onChange={(e) => {
@@ -41,6 +38,14 @@ const App = () => {
                 size="large"
               />
             </Col>
+
+            {result?.map((movie, key) => {
+              return (
+                <Col key={key}>
+                  <MovieCard movie={movie} />
+                </Col>
+              );
+            })}
           </Row>
         </div>
         <div className="app-right">
@@ -59,13 +64,13 @@ const App = () => {
 
 export default App;
 
-const AppTag = styled.nav`
+const AppTag = styled.div`
   .app {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     &-left {
       width: 50vw;
-      background-color: #fffbdf;
+      background-color: #eeeeee;
       &__row {
         padding-top: 15vh;
         &--headText {
@@ -73,8 +78,11 @@ const AppTag = styled.nav`
           span {
             display: block;
             color: #004c3f;
+            font-weight: 700;
+            font-size: 2.35rem;
           }
         }
+
         h3 {
           font-size: 1.1rem;
         }
@@ -83,7 +91,7 @@ const AppTag = styled.nav`
   }
   .app-right {
     width: 50vw;
-    background-color: #fbf7ed;
+    background-color: #aad8d3;
     &__row {
       padding-top: 15vh;
       h1 {

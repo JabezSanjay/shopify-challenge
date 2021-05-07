@@ -20,11 +20,12 @@ const NavbarTag = styled.nav`
     min-height: 7.5vh;
     position: fixed;
     width: 100%;
-    background: #004c3f;
+    background: transparent;
     &__title {
       margin: 1em;
       font-size: 1.25rem;
-      color: #fff;
+      color: #004c3f;
+      font-weight: 700;
     }
   }
 `;

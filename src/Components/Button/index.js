@@ -3,8 +3,13 @@ import { Button } from "antd";
 
 const SmallButton = ({ name, disabled, loading }) => {
   return (
-    <Button disabled={disabled} laoding={loading}>
-      Hey
+    <Button
+      disabled={disabled}
+      laoding={loading}
+      className="app__button"
+      size="large"
+    >
+      Nominate
     </Button>
   );
 };
