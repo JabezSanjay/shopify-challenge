@@ -1,6 +1,6 @@
-# the-shoppies
+# The Shoppies
 
-Movie nomination website created as part of the application process for the Shopify Front-End Developer Internship.
+Movie nomination website created for the Shopify Front-End Developer Internship.
 
 # [🔗 View Deployed Version](http://theshoppies.jabezsanjay.com/)
 
