@@ -29,8 +29,6 @@ Improvements to design and functionality are allowed to be added in order to hig
 - Use a Loader/Spinner when querying the API for search or nominating
 - A percentage component to show percentage of allowed nominated movies.
 
-![Reference Image](./readme-assets/the-shoppies.png)
-
 ---
 
 ## Tech Used
