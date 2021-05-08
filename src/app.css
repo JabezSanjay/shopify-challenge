@@ -5,3 +5,9 @@ body {
   max-width: 100%;
   overflow-x: hidden;
 }
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

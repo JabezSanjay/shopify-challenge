@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Row, Col, Input } from "antd";
+import { Row, Col, Input, Spin, Alert, Progress } from "antd";
 import { FileSearchOutlined } from "@ant-design/icons";
 import "./app.css";
 import { fetchMovie } from "./api";
@@ -11,13 +11,22 @@ import { MovieContext } from "./store/MovieContext";
 const App = () => {
   // const [search, setSearch] = useState("");
   const [result, setResult] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const { nominatedMovies } = useContext(MovieContext);
 
-  const getMovieDetails = (name, page) => {
-    fetchMovie(name, page).then((data) => {
-      setResult(data.data.Search?.splice(0, 3));
+  const getMovieDetails = async (name, page) => {
+    setLoading(true);
+    await fetchMovie(name, page).then((data) => {
+      if (data.data.Response === "False") {
+        setError(data.data.Error);
+      } else {
+        setError("");
+        setResult(data.data.Search?.splice(0, 3));
+      }
     });
+    setLoading(false);
   };
 
   return (
@@ -48,7 +57,20 @@ const App = () => {
               </Col>
             )}
 
+            {error && error !== "Incorrect IMDb ID." && (
+              <Col span={24} className="center">
+                <Alert message={error} type="error" showIcon closable />
+              </Col>
+            )}
+
+            {loading && (
+              <Col span={24} className="center">
+                <Spin size="large" />
+              </Col>
+            )}
+
             {nominatedMovies.length < 5 &&
+              error === "" &&
               result?.map((movie, key) => {
                 return (
                   <Col key={key}>
@@ -56,15 +78,21 @@ const App = () => {
                   </Col>
                 );
               })}
+            <Progress
+              type="circle"
+              percent={nominatedMovies.length * 20}
+              className="app-left__row--progress"
+            />
           </Row>
         </div>
         <div className="app-right">
           <Row className="app-right__row" justify="center" gutter={[16, 32]}>
-            <Col span={20}>
+            <Col span={20} style={{ marginBottom: 180 }}>
               <h1>
                 Nominated <span>{nominatedMovies.length}/5</span>
               </h1>
             </Col>
+
             {nominatedMovies?.map((movie, key) => {
               return (
                 <Col key={key}>
@@ -85,9 +113,11 @@ const AppTag = styled.div`
   .app {
     min-height: 100vh;
     display: flex;
+
     &-left {
       width: 50vw;
       background-color: #eeeeee;
+      position: relative;
       &__row {
         padding-top: 15vh;
         &--headText {
@@ -98,6 +128,11 @@ const AppTag = styled.div`
             font-weight: 700;
             font-size: 2.35rem;
           }
+        }
+        &--progress {
+          position: absolute;
+          top: 40px;
+          right: -4.4em;
         }
 
         h3 {
@@ -113,6 +148,12 @@ const AppTag = styled.div`
       padding-top: 15vh;
       h1 {
         text-align: right;
+        font-size: 1.25rem;
+
+        span {
+          font-size: 1.74rem;
+          color: #004c3f;
+        }
       }
     }
   }

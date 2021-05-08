@@ -15,6 +15,7 @@ export default Navbar;
 
 const NavbarTag = styled.nav`
   .navbar {
+    z-index: 99;
     display: flex;
     align-items: center;
     min-height: 7.5vh;
