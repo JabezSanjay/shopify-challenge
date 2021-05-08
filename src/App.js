@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Row, Col, Input } from "antd";
 import { FileSearchOutlined } from "@ant-design/icons";
 import "./app.css";
@@ -6,10 +6,13 @@ import { fetchMovie } from "./api";
 import Navbar from "./Layout/Navbar";
 import styled from "styled-components";
 import MovieCard from "./Components/Card";
+import { MovieContext } from "./store/MovieContext";
 
 const App = () => {
   // const [search, setSearch] = useState("");
   const [result, setResult] = useState([]);
+
+  const { nominatedMovies } = useContext(MovieContext);
 
   const getMovieDetails = (name, page) => {
     fetchMovie(name, page).then((data) => {
@@ -27,32 +30,39 @@ const App = () => {
               <h1 className="app-left__row--headText">
                 Nominate using <span>The Shoppies!</span>
               </h1>
-              <h3>Search and nominate 5 movies of your choice!</h3>
+              {nominatedMovies.length < 5 ? (
+                <h3>Search and nominate 5 movies of your choice!</h3>
+              ) : (
+                <h2>You have nominated 5 movies!</h2>
+              )}
             </Col>
-            <Col span={20}>
-              <Input
-                prefix={<FileSearchOutlined />}
-                onChange={(e) => {
-                  getMovieDetails(e.target.value, 1);
-                }}
-                size="large"
-              />
-            </Col>
+            {nominatedMovies.length < 5 && (
+              <Col span={20}>
+                <Input
+                  prefix={<FileSearchOutlined />}
+                  onChange={(e) => {
+                    getMovieDetails(e.target.value, 1);
+                  }}
+                  size="large"
+                />
+              </Col>
+            )}
 
-            {result?.map((movie, key) => {
-              return (
-                <Col key={key}>
-                  <MovieCard movie={movie} />
-                </Col>
-              );
-            })}
+            {nominatedMovies.length < 5 &&
+              result?.map((movie, key) => {
+                return (
+                  <Col key={key}>
+                    <MovieCard movie={movie} />
+                  </Col>
+                );
+              })}
           </Row>
         </div>
         <div className="app-right">
           <Row className="app-right__row" justify="center">
             <Col span={20}>
               <h1>
-                Nominated <span>0/5</span>
+                Nominated <span>{nominatedMovies.length}/5</span>
               </h1>
             </Col>
           </Row>
