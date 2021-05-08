@@ -52,19 +52,26 @@ const App = () => {
               result?.map((movie, key) => {
                 return (
                   <Col key={key}>
-                    <MovieCard movie={movie} />
+                    <MovieCard movie={movie} add={true} />
                   </Col>
                 );
               })}
           </Row>
         </div>
         <div className="app-right">
-          <Row className="app-right__row" justify="center">
+          <Row className="app-right__row" justify="center" gutter={[16, 32]}>
             <Col span={20}>
               <h1>
                 Nominated <span>{nominatedMovies.length}/5</span>
               </h1>
             </Col>
+            {nominatedMovies?.map((movie, key) => {
+              return (
+                <Col key={key}>
+                  <MovieCard movie={movie} />
+                </Col>
+              );
+            })}
           </Row>
         </div>
       </div>

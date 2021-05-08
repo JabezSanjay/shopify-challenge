@@ -5,8 +5,8 @@ import { MovieContext } from "../../store/MovieContext";
 
 const { Meta } = Card;
 
-const MovieCard = ({ movie }) => {
-  const { addMovie } = useContext(MovieContext);
+const MovieCard = ({ movie, add }) => {
+  const { addMovie, removeMovie } = useContext(MovieContext);
   return (
     <Card
       hoverable
@@ -14,8 +14,8 @@ const MovieCard = ({ movie }) => {
       actions={[
         <SmallButton
           movie={movie}
-          name="Nominate"
-          onClick={() => addMovie(movie)}
+          name={add ? "Nominate" : "Remove"}
+          onClick={() => (add ? addMovie(movie) : removeMovie(movie))}
         />,
       ]}
     >

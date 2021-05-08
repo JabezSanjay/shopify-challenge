@@ -1,1 +1,7 @@
 @import "~antd/dist/antd.css";
+
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
