@@ -141,6 +141,7 @@ const AppTag = styled.div`
       }
     }
   }
+
   .app-right {
     width: 50vw;
     background-color: #aad8d3;
@@ -153,6 +154,23 @@ const AppTag = styled.div`
         span {
           font-size: 1.74rem;
           color: #004c3f;
+        }
+      }
+    }
+  }
+  @media (max-width: 470px) {
+    .app {
+      &-left {
+        &__row {
+          &--headText {
+            font-size: 1.7rem;
+            span {
+              font-size: 2rem;
+            }
+          }
+          &--progress {
+            top: 10px;
+          }
         }
       }
     }

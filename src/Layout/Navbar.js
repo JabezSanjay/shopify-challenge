@@ -19,14 +19,20 @@ const NavbarTag = styled.nav`
     display: flex;
     align-items: center;
     min-height: 7.5vh;
-    position: fixed;
     width: 100%;
-    background: transparent;
+    position: fixed;
     &__title {
       margin: 1em;
       font-size: 1.25rem;
       color: #004c3f;
       font-weight: 700;
+    }
+  }
+  @media (max-width: 470px) {
+    .navbar {
+      &__title {
+        font-size: 1rem;
+      }
     }
   }
 `;
