@@ -1,7 +1,7 @@
 const axios = require("axios");
 
 const api_key = process.env.REACT_APP_API_KEY;
-const url = `http://www.omdbapi.com/?apikey=${api_key}&`;
+const url = `https://www.omdbapi.com/?apikey=${api_key}&`;
 
 export const fetchMovie = async (searchedMovie, page) => {
   let changeableUrl = url;
